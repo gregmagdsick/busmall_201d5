@@ -11,14 +11,13 @@ var Product = function(productName,filePath) {
   productShows = 0;
   productClicks = 0;
   allProducts.push(this);
-  console.log(allProducts);
 }
 
-Product.prototype.displayImage = function() {
+Product.prototype.displayImage = function(imageLocationId) {
   var img = document.createElement('img');
   img.src = this.filePath;
 
-  imageLocationOne.appendChild(img);
+  imageLocationId.appendChild(img);
 }
 
 var bag = new Product('Bag','img/bag.jpg');
@@ -41,5 +40,27 @@ function randomImageDisplay() {
   allProducts[i].displayImage();
 }
 
+function threeRandomProducts() {
+  var i = Math.ceil(Math.random() * (allProducts.length - 1));
+  var j = Math.ceil(Math.random() * (allProducts.length - 1));
+  var k = Math.ceil(Math.random() * (allProducts.length - 1));
+  var randomProductOne = allProducts[i];
+  var randomProductTwo = allProducts[j];
+  var randomProductThree = allProducts[k];
 
-randomImageDisplay();
+  while (randomProductOne === randomProductTwo) {
+    j = Math.ceil(Math.random() * (allProducts.length - 1));
+    randomProductTwo = allProducts[j];
+  }
+
+  while (randomProductTwo === randomProductThree) {
+    k = Math.ceil(Math.random() * (allProducts.length - 1));
+    randomProductThree = allProducts[k];
+  }
+
+  randomProductOne.displayImage(imageLocationOne);
+  randomProductTwo.displayImage(imageLocationTwo);
+  randomProductThree.displayImage(imageLocationThree);
+}
+
+threeRandomProducts();
