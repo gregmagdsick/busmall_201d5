@@ -4,6 +4,9 @@ var imageLocationTwo = document.getElementById('imageLocationTwo');
 var imageLocationThree = document.getElementById('imageLocationThree');
 
 var allProducts = [];
+var productInOne = 0;
+var productInTwo = 0;
+var productInThree = 0;
 
 //building object constructor
 var Product = function(productName,filePath) {
@@ -17,7 +20,7 @@ var Product = function(productName,filePath) {
 Product.prototype.displayImage = function(imageLocationId) {
   var img = document.createElement('img');
   img.src = this.filePath;
-
+  this.productShows += 1;
   imageLocationId.appendChild(img);
 }
 
@@ -62,11 +65,12 @@ function threeRandomProducts() {
     randomProductThree = allProducts[k];
   }
 
-  randomProductOne.displayImage(imageLocationOne);
-  randomProductTwo.displayImage(imageLocationTwo);
-  randomProductThree.displayImage(imageLocationThree);
+  randomProductOne.displayImage(imageLocationOne, randomProductOne);
+  randomProductTwo.displayImage(imageLocationTwo, randomProductTwo);
+  randomProductThree.displayImage(imageLocationThree, randomProductThree);
 }
 
+//Inital population of the page
 threeRandomProducts();
 
 function handleClickOnOne (event) {
