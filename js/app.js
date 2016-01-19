@@ -23,7 +23,6 @@ var Product = function(productName,filePath) {
 Product.prototype.displayImage = function(imageLocationId) {
   var img = document.createElement('img');
   img.src = this.filePath;
-  // this.productShows += 1;
   imageLocationId.appendChild(img);
 }
 
@@ -41,11 +40,6 @@ var unicorn = new Product('Unicorn Meat', 'img/unicorn.jpg');
 var usb = new Product('USB Tentacle', 'img/usb.gif');
 var water_can = new Product('Watering Can', 'img/water-can.jpg');
 var wine_glass = new Product('Wine Glass', 'img/wine-glass.jpg');
-
-function randomImageDisplay() {
-  var i = Math.floor(Math.random() * allProducts.length);
-  allProducts[i].displayImage();
-}
 
 function threeRandomProducts() {
   var i = Math.floor(Math.random() * (allProducts.length));
@@ -83,7 +77,11 @@ function addResultsButton() {
 
 function calcClickPercents() {
   for (var i = 0; i < allProducts.length; i++) {
-    clickPercents[i] = (allProducts[i].productClicks / allProducts[i].productShows) * 100;
+    if (allProducts[i].productShows > 0) {
+      clickPercents[i] = (allProducts[i].productClicks / allProducts[i].productShows) * 100;
+    } else {
+      clickPercents[i] = 0;
+    }
   }
   return clickPercents
 }
