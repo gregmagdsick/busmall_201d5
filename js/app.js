@@ -1,6 +1,7 @@
+'use strict';
 var imageLocationOne = document.getElementById('imageLocationOne');
 var imageLocationTwo = document.getElementById('imageLocationTwo');
-var imageLocationTwo = document.getElementById('imageLocationThree');
+var imageLocationThree = document.getElementById('imageLocationThree');
 
 var allProducts = [];
 
@@ -8,8 +9,8 @@ var allProducts = [];
 var Product = function(productName,filePath) {
   this.productName = productName;
   this.filePath = filePath;
-  productShows = 0;
-  productClicks = 0;
+  var productShows = 0;
+  var productClicks = 0;
   allProducts.push(this);
 }
 
@@ -22,7 +23,7 @@ Product.prototype.displayImage = function(imageLocationId) {
 
 var bag = new Product('Bag','img/bag.jpg');
 var banana = new Product('Banana', 'img/banana.jpg');
-var boots = new Product('Boots', 'img/banana.jpg');
+var boots = new Product('Boots', 'img/boots.jpg');
 var chair = new Product('Chair', 'img/chair.jpg');
 var cthulhu = new Product('Cthulu', 'img/cthulhu.jpg');
 var dragon = new Product('Dragon Meat', 'img/dragon.jpg');
@@ -41,20 +42,23 @@ function randomImageDisplay() {
 }
 
 function threeRandomProducts() {
-  var i = Math.ceil(Math.random() * (allProducts.length - 1));
-  var j = Math.ceil(Math.random() * (allProducts.length - 1));
-  var k = Math.ceil(Math.random() * (allProducts.length - 1));
+  var i = Math.floor(Math.random() * (allProducts.length));
+  var j = Math.floor(Math.random() * (allProducts.length));
+  console.log(j);
+  var k = Math.floor(Math.random() * (allProducts.length));
   var randomProductOne = allProducts[i];
   var randomProductTwo = allProducts[j];
   var randomProductThree = allProducts[k];
 
-  while (randomProductOne === randomProductTwo) {
-    j = Math.ceil(Math.random() * (allProducts.length - 1));
+  while (i === j) {
+    j = Math.floor(Math.random() * (allProducts.length));
+    console.log(j);
     randomProductTwo = allProducts[j];
   }
 
-  while (randomProductTwo === randomProductThree) {
-    k = Math.ceil(Math.random() * (allProducts.length - 1));
+  while (j === k || i === k) {
+    k = Math.floor(Math.random() * (allProducts.length));
+    console.log(k);
     randomProductThree = allProducts[k];
   }
 
