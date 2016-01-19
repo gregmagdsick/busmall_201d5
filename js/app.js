@@ -18,7 +18,7 @@ var Product = function(productName,filePath) {
 Product.prototype.displayImage = function(imageLocationId) {
   var img = document.createElement('img');
   img.src = this.filePath;
-  this.productShows += 1;
+  // this.productShows += 1;
   imageLocationId.appendChild(img);
 }
 
@@ -38,7 +38,7 @@ var water_can = new Product('Watering Can', 'img/water-can.jpg');
 var wine_glass = new Product('Wine Glass', 'img/wine-glass.jpg');
 
 function randomImageDisplay() {
-  var i = Math.ceil(Math.random() * (allProducts.length - 1));
+  var i = Math.floor(Math.random() * allProducts.length);
   allProducts[i].displayImage();
 }
 
@@ -69,12 +69,22 @@ function threeRandomProducts() {
   return [i,j,k]
 }
 
+function addResultsButton() {
+  if (totalClicks > 2) {
+    var buttonID = document.getElementById('results');
+    buttonID.removeAttribute('hidden');
+  }
+}
+
 //Inital population of the page
 var displayedProducts = threeRandomProducts();
 
 function handleClickOnOne (event) {
   console.log(event);
   event.preventDefault();
+  allProducts[displayedProducts[0]].productShows += 1;
+  allProducts[displayedProducts[1]].productShows += 1;
+  allProducts[displayedProducts[2]].productShows += 1;
   totalClicks += 1;
   console.log('total clicks: ' + totalClicks);
   allProducts[displayedProducts[0]].productClicks += 1;
@@ -82,34 +92,40 @@ function handleClickOnOne (event) {
   imageLocationOne.innerHTML = ' ';
   imageLocationTwo.innerHTML = ' ';
   imageLocationThree.innerHTML = ' ';
-
+  addResultsButton()
   displayedProducts = threeRandomProducts();
 }
 
 function handleClickOnTwo (event) {
   console.log(event);
   event.preventDefault();
+  allProducts[displayedProducts[0]].productShows += 1;
+  allProducts[displayedProducts[1]].productShows += 1;
+  allProducts[displayedProducts[2]].productShows += 1;
   totalClicks += 1;
   allProducts[displayedProducts[1]].productClicks += 1;
   imageLocationOne.innerHTML = ' ';
   imageLocationTwo.innerHTML = ' ';
   imageLocationThree.innerHTML = ' ';
-
+  addResultsButton()
   displayedProducts = threeRandomProducts();
 }
 
 function handleClickOnThree (event) {
   console.log(event);
   event.preventDefault();
+  allProducts[displayedProducts[0]].productShows += 1;
+  allProducts[displayedProducts[1]].productShows += 1;
+  allProducts[displayedProducts[2]].productShows += 1;
   totalClicks += 1;
   allProducts[displayedProducts[2]].productClicks += 1;
   imageLocationOne.innerHTML = ' ';
   imageLocationTwo.innerHTML = ' ';
   imageLocationThree.innerHTML = ' ';
-
+  addResultsButton()
   displayedProducts = threeRandomProducts();
 }
 
-imageLocationOne.addEventListener('click', handleClickOnOne);
+imageLocationOne.addEventListener('click', handleClickOnOne, displayedProducts[0]);
 imageLocationTwo.addEventListener('click', handleClickOnTwo);
 imageLocationThree.addEventListener('click', handleClickOnThree);
