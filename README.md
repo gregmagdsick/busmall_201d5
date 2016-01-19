@@ -7,6 +7,7 @@ logomakr.com/6en82d
 1/19/2016
 * Built click tracking for each product
 * Built total click tracking
+* bit help from Hugo to get chart.js error fixed
 
 1/18/2016
 * Built the basic functionality of showing 3 random images in the web browser for the
