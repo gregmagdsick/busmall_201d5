@@ -4,6 +4,7 @@ var imageLocationTwo = document.getElementById('imageLocationTwo');
 var imageLocationThree = document.getElementById('imageLocationThree');
 
 var allProducts = [];
+var totalClicks = 0;
 
 //building object constructor
 var Product = function(productName,filePath) {
@@ -74,6 +75,8 @@ var displayedProducts = threeRandomProducts();
 function handleClickOnOne (event) {
   console.log(event);
   event.preventDefault();
+  totalClicks += 1;
+  console.log('total clicks: ' + totalClicks);
   allProducts[displayedProducts[0]].productClicks += 1;
   console.log(allProducts[displayedProducts[0]]);
   imageLocationOne.innerHTML = ' ';
@@ -86,8 +89,8 @@ function handleClickOnOne (event) {
 function handleClickOnTwo (event) {
   console.log(event);
   event.preventDefault();
+  totalClicks += 1;
   allProducts[displayedProducts[1]].productClicks += 1;
-  console.log(allProducts[displayedProducts[1]]);
   imageLocationOne.innerHTML = ' ';
   imageLocationTwo.innerHTML = ' ';
   imageLocationThree.innerHTML = ' ';
@@ -98,8 +101,8 @@ function handleClickOnTwo (event) {
 function handleClickOnThree (event) {
   console.log(event);
   event.preventDefault();
+  totalClicks += 1;
   allProducts[displayedProducts[2]].productClicks += 1;
-  console.log(allProducts[displayedProducts[2]]);
   imageLocationOne.innerHTML = ' ';
   imageLocationTwo.innerHTML = ' ';
   imageLocationThree.innerHTML = ' ';
