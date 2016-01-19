@@ -68,3 +68,43 @@ function threeRandomProducts() {
 }
 
 threeRandomProducts();
+
+function handleClickOnOne (event) {
+  console.log(event);
+  event.preventDefault();
+
+
+  imageLocationOne.innerHTML = ' ';
+  imageLocationTwo.innerHTML = ' ';
+  imageLocationThree.innerHTML = ' ';
+
+  threeRandomProducts();
+}
+
+function handleClickOnTwo (event) {
+  console.log(event);
+  event.preventDefault();
+
+
+  imageLocationOne.innerHTML = ' ';
+  imageLocationTwo.innerHTML = ' ';
+  imageLocationThree.innerHTML = ' ';
+
+  threeRandomProducts();
+}
+
+function handleClickOnThree (event) {
+  console.log(event);
+  event.preventDefault();
+
+
+  imageLocationOne.innerHTML = ' ';
+  imageLocationTwo.innerHTML = ' ';
+  imageLocationThree.innerHTML = ' ';
+
+  threeRandomProducts();
+}
+
+imageLocationOne.addEventListener('click', handleClickOnOne);
+imageLocationTwo.addEventListener('click', handleClickOnTwo);
+imageLocationThree.addEventListener('click', handleClickOnThree);
