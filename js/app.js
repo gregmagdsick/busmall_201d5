@@ -4,16 +4,13 @@ var imageLocationTwo = document.getElementById('imageLocationTwo');
 var imageLocationThree = document.getElementById('imageLocationThree');
 
 var allProducts = [];
-var productInOne = 0;
-var productInTwo = 0;
-var productInThree = 0;
 
 //building object constructor
 var Product = function(productName,filePath) {
   this.productName = productName;
   this.filePath = filePath;
-  var productShows = 0;
-  var productClicks = 0;
+  this.productShows = 0;
+  this.productClicks = 0;
   allProducts.push(this);
 }
 
@@ -68,45 +65,46 @@ function threeRandomProducts() {
   randomProductOne.displayImage(imageLocationOne, randomProductOne);
   randomProductTwo.displayImage(imageLocationTwo, randomProductTwo);
   randomProductThree.displayImage(imageLocationThree, randomProductThree);
+  return [i,j,k]
 }
 
 //Inital population of the page
-threeRandomProducts();
+var displayedProducts = threeRandomProducts();
 
 function handleClickOnOne (event) {
   console.log(event);
   event.preventDefault();
-
-
+  allProducts[displayedProducts[0]].productClicks += 1;
+  console.log(allProducts[displayedProducts[0]]);
   imageLocationOne.innerHTML = ' ';
   imageLocationTwo.innerHTML = ' ';
   imageLocationThree.innerHTML = ' ';
 
-  threeRandomProducts();
+  displayedProducts = threeRandomProducts();
 }
 
 function handleClickOnTwo (event) {
   console.log(event);
   event.preventDefault();
-
-
+  allProducts[displayedProducts[1]].productClicks += 1;
+  console.log(allProducts[displayedProducts[1]]);
   imageLocationOne.innerHTML = ' ';
   imageLocationTwo.innerHTML = ' ';
   imageLocationThree.innerHTML = ' ';
 
-  threeRandomProducts();
+  displayedProducts = threeRandomProducts();
 }
 
 function handleClickOnThree (event) {
   console.log(event);
   event.preventDefault();
-
-
+  allProducts[displayedProducts[2]].productClicks += 1;
+  console.log(allProducts[displayedProducts[2]]);
   imageLocationOne.innerHTML = ' ';
   imageLocationTwo.innerHTML = ' ';
   imageLocationThree.innerHTML = ' ';
 
-  threeRandomProducts();
+  displayedProducts = threeRandomProducts();
 }
 
 imageLocationOne.addEventListener('click', handleClickOnOne);
