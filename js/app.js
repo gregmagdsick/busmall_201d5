@@ -4,6 +4,7 @@ var imageLocationTwo = document.getElementById('imageLocationTwo');
 var imageLocationThree = document.getElementById('imageLocationThree');
 var buttonLocation = document.getElementById('results');
 var chartContainer = document.getElementById('chart');
+var noZeroClicks = false;
 
 var allProducts = [];
 var chartLabels = [];
@@ -42,11 +43,25 @@ var usb = new Product('USB Tentacle', 'img/usb.gif');
 var water_can = new Product('Watering Can', 'img/water-can.jpg');
 var wine_glass = new Product('Wine Glass', 'img/wine-glass.jpg');
 
+function testNoZeroViews() {
+  var zeroItemViewsCount = 0;
+  for (var i = 0; i < allProducts.length; i++) {
+    if (allProducts[i].productShows === 0) {
+      zeroItemViewsCount += 1;
+    }
+  }
+  console.log('zeroItemViewsCount = ' + zeroItemViewsCount);
+  if (zeroItemViewsCount === 0) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 function threeRandomProducts() {
-  var i = Math.floor(Math.random() * (allProducts.length));
-  var j = Math.floor(Math.random() * (allProducts.length));
-  console.log(j);
-  var k = Math.floor(Math.random() * (allProducts.length));
+  var i = Math.floor(Math.random() * allProducts.length);
+  var j = Math.floor(Math.random() * allProducts.length);
+  var k = Math.floor(Math.random() * allProducts.length);
   var randomProductOne = allProducts[i];
   var randomProductTwo = allProducts[j];
   var randomProductThree = allProducts[k];
@@ -63,6 +78,7 @@ function threeRandomProducts() {
     randomProductThree = allProducts[k];
   }
 
+  noZeroClicks = testNoZeroViews();
   randomProductOne.displayImage(imageLocationOne, randomProductOne);
   randomProductTwo.displayImage(imageLocationTwo, randomProductTwo);
   randomProductThree.displayImage(imageLocationThree, randomProductThree);
@@ -70,7 +86,7 @@ function threeRandomProducts() {
 }
 
 function addResultsButton() {
-  if (totalClicks > 14) {
+  if (totalClicks > 14 && noZeroClicks === true) {
     var buttonId = document.getElementById('results');
     buttonId.removeAttribute('hidden');
   }
@@ -105,7 +121,7 @@ function handleClickOnLeft (event) {
   imageLocationThree.innerHTML = ' ';
   addResultsButton()
   displayedProducts = threeRandomProducts();
-}
+};
 
 function handleClickOnCenter (event) {
   console.log(event);
@@ -130,6 +146,24 @@ function handleClickOnRight (event) {
   allProducts[displayedProducts[2]].productShows += 1;
   totalClicks += 1;
   allProducts[displayedProducts[2]].productClicks += 1;
+  imageLocationOne.innerHTML = ' ';
+  imageLocationTwo.innerHTML = ' ';
+  imageLocationThree.innerHTML = ' ';
+  addResultsButton()
+  displayedProducts = threeRandomProducts();
+}
+
+//Trying to abstract the event handler
+function handleClickOnProduct (event, productLocationId) {
+  console.log(event);
+  event.preventDefault();
+  allProducts[displayedProducts[0]].productShows += 1;
+  allProducts[displayedProducts[1]].productShows += 1;
+  allProducts[displayedProducts[2]].productShows += 1;
+  totalClicks += 1;
+  // console.log('total clicks: ' + totalClicks);
+  allProducts[displayedProducts[productLocationId]].productClicks += 1;
+  // console.log(allProducts[displayedProducts[0]]);
   imageLocationOne.innerHTML = ' ';
   imageLocationTwo.innerHTML = ' ';
   imageLocationThree.innerHTML = ' ';
@@ -162,3 +196,5 @@ imageLocationOne.addEventListener('click', handleClickOnLeft);
 imageLocationTwo.addEventListener('click', handleClickOnCenter);
 imageLocationThree.addEventListener('click', handleClickOnRight);
 buttonLocation.addEventListener('click', handleClickOnButton)
+
+// imageLocationOne.addEventListener('click', (handleClickOnProduct(1) {return function(e) {func(e, 1); };}) (this.elements[i]), false);
