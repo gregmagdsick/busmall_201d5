@@ -3,6 +3,7 @@ var imageLocationOne = document.getElementById('imageLocationOne');
 var imageLocationTwo = document.getElementById('imageLocationTwo');
 var imageLocationThree = document.getElementById('imageLocationThree');
 var buttonLocation = document.getElementById('results');
+var chartContainer = document.getElementById('chart');
 
 var allProducts = [];
 var chartLabels = [];
@@ -151,6 +152,8 @@ function handleClickOnButton(event) {
       }
     ]
   };
+  chartContainer.innerHTML = ' ';
+  chartContainer.innerHTML = '<canvas id="barChart" width= "600" height="400"></canvas>'
   var chartId = document.getElementById('barChart').getContext('2d');
   new Chart(chartId).Bar(data);
 };
