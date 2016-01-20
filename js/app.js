@@ -79,7 +79,7 @@ function addResultsButton() {
 function calcClickPercents() {
   for (var i = 0; i < allProducts.length; i++) {
     if (allProducts[i].productShows > 0) {
-      clickPercents[i] = (allProducts[i].productClicks / allProducts[i].productShows) * 100;
+      clickPercents[i] = ((allProducts[i].productClicks / allProducts[i].productShows) * 100).toFixed(2);
     } else {
       clickPercents[i] = 0;
     }
@@ -147,13 +147,13 @@ function handleClickOnButton(event) {
         fillColor : "#FF0000",
         StrokeColor : "#7E7E7E",
         highlightFill : "#C5C5C5",
-        highlightStroke : "#C5C5C5",
+        highlightStroke : "#7E7E7E",
         data : clickPercents
       }
     ]
   };
   chartContainer.innerHTML = ' ';
-  chartContainer.innerHTML = '<canvas id="barChart" width= "600" height="400"></canvas>'
+  chartContainer.innerHTML = '<h3>Click Percentages by Item</h3> <canvas id="barChart" width= "600" height="400"></canvas>'
   var chartId = document.getElementById('barChart').getContext('2d');
   new Chart(chartId).Bar(data);
 };
