@@ -1,0 +1,10 @@
+.git/**
+**.html
+css/**
+img/**
+js/chart.min.js
+.DS_Store
+.eslintignore
+.eslintrc
+**.md
+LICENSE

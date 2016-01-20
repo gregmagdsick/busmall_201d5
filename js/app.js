@@ -20,13 +20,13 @@ var Product = function(productName,filePath) {
   this.clickPercentage = 0;
   allProducts.push(this);
   chartLabels.push(this.productName);
-}
+};
 
 Product.prototype.displayImage = function(imageLocationId) {
   var img = document.createElement('img');
   img.src = this.filePath;
   imageLocationId.appendChild(img);
-}
+};
 
 var bag = new Product('R2 Bag','img/bag.jpg');
 var banana = new Product('Banana Slicer', 'img/banana.jpg');
@@ -82,7 +82,7 @@ function threeRandomProducts() {
   randomProductOne.displayImage(imageLocationOne, randomProductOne);
   randomProductTwo.displayImage(imageLocationTwo, randomProductTwo);
   randomProductThree.displayImage(imageLocationThree, randomProductThree);
-  return [i,j,k]
+  return [i,j,k];
 }
 
 function addResultsButton() {
@@ -100,7 +100,7 @@ function calcClickPercents() {
       clickPercents[i] = 0;
     }
   }
-  return clickPercents
+  return clickPercents;
 }
 
 //Inital population of the page
@@ -119,9 +119,9 @@ function handleClickOnLeft (event) {
   imageLocationOne.innerHTML = ' ';
   imageLocationTwo.innerHTML = ' ';
   imageLocationThree.innerHTML = ' ';
-  addResultsButton()
+  addResultsButton();
   displayedProducts = threeRandomProducts();
-};
+}
 
 function handleClickOnCenter (event) {
   console.log(event);
@@ -134,7 +134,7 @@ function handleClickOnCenter (event) {
   imageLocationOne.innerHTML = ' ';
   imageLocationTwo.innerHTML = ' ';
   imageLocationThree.innerHTML = ' ';
-  addResultsButton()
+  addResultsButton();
   displayedProducts = threeRandomProducts();
 }
 
@@ -149,7 +149,7 @@ function handleClickOnRight (event) {
   imageLocationOne.innerHTML = ' ';
   imageLocationTwo.innerHTML = ' ';
   imageLocationThree.innerHTML = ' ';
-  addResultsButton()
+  addResultsButton();
   displayedProducts = threeRandomProducts();
 }
 
@@ -167,7 +167,7 @@ function handleClickOnProduct (event, productLocationId) {
   imageLocationOne.innerHTML = ' ';
   imageLocationTwo.innerHTML = ' ';
   imageLocationThree.innerHTML = ' ';
-  addResultsButton()
+  addResultsButton();
   displayedProducts = threeRandomProducts();
 }
 
@@ -178,23 +178,23 @@ function handleClickOnButton(event) {
     datasets : [
       {
         label : 'Click Percentages',
-        fillColor : "#FF0000",
-        StrokeColor : "#7E7E7E",
-        highlightFill : "#C5C5C5",
-        highlightStroke : "#7E7E7E",
+        fillColor : '#FF0000',
+        StrokeColor : '#7E7E7E',
+        highlightFill : '#C5C5C5',
+        highlightStroke : '#7E7E7E',
         data : clickPercents
       }
     ]
   };
   chartContainer.innerHTML = ' ';
-  chartContainer.innerHTML = '<h3>Click Percentages by Item</h3> <canvas id="barChart" width= "600" height="400"></canvas>'
+  chartContainer.innerHTML = '<h3>Click Percentages by Item</h3> <canvas id="barChart" width= "600" height="400"></canvas>';
   var chartId = document.getElementById('barChart').getContext('2d');
   new Chart(chartId).Bar(data);
-};
+}
 
 imageLocationOne.addEventListener('click', handleClickOnLeft);
 imageLocationTwo.addEventListener('click', handleClickOnCenter);
 imageLocationThree.addEventListener('click', handleClickOnRight);
-buttonLocation.addEventListener('click', handleClickOnButton)
+buttonLocation.addEventListener('click', handleClickOnButton);
 
 // imageLocationOne.addEventListener('click', (handleClickOnProduct(1) {return function(e) {func(e, 1); };}) (this.elements[i]), false);
