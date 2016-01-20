@@ -2,6 +2,7 @@
   display: flex;
   justify-content: space-around;
   flex: auto;
+  flex-flow: row wrap;
 }
 
 .logocontainer {
