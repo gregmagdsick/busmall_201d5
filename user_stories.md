@@ -6,7 +6,7 @@ Here are the user stories for this project
 
 * As a marketing research team, I want the products to show up at the same time, side by side.
 
-* As a marketing research team, I want the voting data to be stored, calculate helpful metrics and displayed
+* As a marketing research team, I want to store the voting data.
 
 * As a marketing research team, I want to have a report on the popularity of each product we are showing to the focus group participants.
 
@@ -19,8 +19,6 @@ Here are the user stories for this project
 * As a developer, I want to build the JavaScript using good object oriented principals.
 
 * As a developer, I want to write the code in modular form for readability and maintainability.
-
-* As a developer, I want to DRY out my code.
 
 * As a developer, I want ensure all products get shown at least once before I display the results.
 
