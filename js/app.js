@@ -70,7 +70,7 @@ function threeRandomProducts() {
 }
 
 function addResultsButton() {
-  if (totalClicks > 2) {
+  if (totalClicks > 14) {
     var buttonId = document.getElementById('results');
     buttonId.removeAttribute('hidden');
   }
