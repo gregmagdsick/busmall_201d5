@@ -36,6 +36,8 @@ Here are the user stories for this project
 
 * As a developer, I want the marketing data displayed to update if the user clicks on the display button again.
 
+* As a developer, I want to use a linter to clean up my code
+
 
 ### As a focus group participant: ###
 
