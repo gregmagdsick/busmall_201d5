@@ -34,7 +34,7 @@ Here are the user stories for this project
 
 * As a developer, I want to write code to display a button allowing the participants to view the marketing data after they have voted 15 times.
 
-* As a developer, I want the marketing data displayed to update each time another product is clicked.
+* As a developer, I want the marketing data displayed to update if the user clicks on the display button again.
 
 
 ### As a focus group participant: ###
