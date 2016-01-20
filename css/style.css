@@ -1,10 +1,14 @@
 .container {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 .logocontainer {
   display: flex;
   justify-content: flex-start;
   align-items: flex-end;
+}
+
+body {
+  text-align: center;
 }
