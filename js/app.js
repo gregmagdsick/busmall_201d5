@@ -1,154 +1,156 @@
 'use strict';
-var imageLocationOne = document.getElementById('imageLocationOne');
-var imageLocationTwo = document.getElementById('imageLocationTwo');
-var imageLocationThree = document.getElementById('imageLocationThree');
-var buttonLocation = document.getElementById('results');
-var chartContainer = document.getElementById('chart');
-var noZeroClicks = false;
+(function(){
+  var imageLocationOne = document.getElementById('imageLocationOne');
+  var imageLocationTwo = document.getElementById('imageLocationTwo');
+  var imageLocationThree = document.getElementById('imageLocationThree');
+  var buttonLocation = document.getElementById('results');
+  var chartContainer = document.getElementById('chart');
+  var noZeroClicks = false;
 
-var allProducts = [];
-var chartLabels = [];
-var clickPercents = [];
-var totalClicks = 0;
+  var allProducts = [];
+  var chartLabels = [];
+  var clickPercents = [];
+  var totalClicks = 0;
 
-//building object constructor
-var Product = function(productName,filePath) {
-  this.productName = productName;
-  this.filePath = filePath;
-  this.productShows = 0;
-  this.productClicks = 0;
-  this.clickPercentage = 0;
-  allProducts.push(this);
-  chartLabels.push(this.productName);
-};
 
-Product.prototype.displayImage = function(imageLocationId) {
-  var img = document.createElement('img');
-  img.src = this.filePath;
-  imageLocationId.appendChild(img);
-};
-
-var bag = new Product('R2 Bag','img/bag.jpg');
-var banana = new Product('Banana Slicer', 'img/banana.jpg');
-var boots = new Product('Boots', 'img/boots.jpg');
-var chair = new Product('Chair', 'img/chair.jpg');
-var cthulhu = new Product('Cthulu', 'img/cthulhu.jpg');
-var dragon = new Product('Dragon Meat', 'img/dragon.jpg');
-var pen = new Product('Pen Silverware', 'img/pen.jpg');
-var scissors = new Product('Pizza Scissors', 'img/scissors.jpg');
-var shark = new Product('Shark Sleepig Bag', 'img/shark.jpg');
-var sweep = new Product('Baby Sweeper', 'img/sweep.png');
-var unicorn = new Product('Unicorn Meat', 'img/unicorn.jpg');
-var usb = new Product('USB Tentacle', 'img/usb.gif');
-var water_can = new Product('Watering Can', 'img/water-can.jpg');
-var wine_glass = new Product('Wine Glass', 'img/wine-glass.jpg');
-
-function testNoZeroViews() {
-  var zeroItemViewsCount = 0;
-  for (var i = 0; i < allProducts.length; i++) {
-    if (allProducts[i].productShows === 0) {
-      zeroItemViewsCount += 1;
-    }
-  }
-  console.log('zeroItemViewsCount = ' + zeroItemViewsCount);
-  if (zeroItemViewsCount === 0) {
-    return true;
-  } else {
-    return false;
-  }
-}
-
-var randomProductOne = 0;
-var randomProductTwo = 0;
-var randomProductThree = 0;
-
-function threeRandomProducts() {
-  var i = Math.floor(Math.random() * allProducts.length);
-  var j = Math.floor(Math.random() * allProducts.length);
-  var k = Math.floor(Math.random() * allProducts.length);
-  randomProductOne = allProducts[i];
-  randomProductTwo = allProducts[j];
-  randomProductThree = allProducts[k];
-
-  while (i === j) {
-    j = Math.floor(Math.random() * (allProducts.length));
-    console.log(j);
-    randomProductTwo = allProducts[j];
-  }
-
-  while (j === k || i === k) {
-    k = Math.floor(Math.random() * (allProducts.length));
-    console.log(k);
-    randomProductThree = allProducts[k];
-  }
-
-  noZeroClicks = testNoZeroViews();
-  randomProductOne.displayImage(imageLocationOne, randomProductOne);
-  randomProductTwo.displayImage(imageLocationTwo, randomProductTwo);
-  randomProductThree.displayImage(imageLocationThree, randomProductThree);
-  return [i,j,k];
-}
-
-function addResultsButton() {
-  if (totalClicks > 14 && noZeroClicks === true) {
-    var buttonId = document.getElementById('results');
-    buttonId.removeAttribute('hidden');
-  }
-}
-
-function calcClickPercents() {
-  for (var i = 0; i < allProducts.length; i++) {
-    if (allProducts[i].productShows > 0) {
-      clickPercents[i] = ((allProducts[i].productClicks / allProducts[i].productShows) * 100).toFixed(2);
-    } else {
-      clickPercents[i] = 0;
-    }
-  }
-  return clickPercents;
-}
-
-//Inital population of the page
-var displayedProducts = threeRandomProducts();
-
-//Trying to abstract the event handler
-function handleClickOnProduct (clickedProduct) {
-  console.log(clickedProduct);
-  event.preventDefault();
-  allProducts[displayedProducts[0]].productShows += 1;
-  allProducts[displayedProducts[1]].productShows += 1;
-  allProducts[displayedProducts[2]].productShows += 1;
-  totalClicks += 1;
-  clickedProduct.productClicks += 1;
-
-  imageLocationOne.innerHTML = ' ';
-  imageLocationTwo.innerHTML = ' ';
-  imageLocationThree.innerHTML = ' ';
-  addResultsButton();
-  displayedProducts = threeRandomProducts();
-}
-
-function handleClickOnButton(event) {
-  var clickPercents = calcClickPercents();
-  var data = {
-    labels : chartLabels,
-    datasets : [
-      {
-        label : 'Click Percentages',
-        fillColor : '#FF0000',
-        StrokeColor : '#7E7E7E',
-        highlightFill : '#C5C5C5',
-        highlightStroke : '#7E7E7E',
-        data : clickPercents
-      }
-    ]
+  var Product = function(productName,filePath) {
+    this.productName = productName;
+    this.filePath = filePath;
+    this.productShows = 0;
+    this.productClicks = 0;
+    this.clickPercentage = 0;
+    allProducts.push(this);
+    chartLabels.push(this.productName);
   };
-  chartContainer.innerHTML = ' ';
-  chartContainer.innerHTML = '<h3>Click Percentages by Item</h3> <canvas id="barChart" width= "600" height="300"></canvas>';
-  var chartId = document.getElementById('barChart').getContext('2d');
-  new Chart(chartId).Bar(data);
-}
 
-imageLocationOne.addEventListener('click', function(){handleClickOnProduct(randomProductOne);});
-imageLocationTwo.addEventListener('click', function(){handleClickOnProduct(randomProductTwo);});
-imageLocationThree.addEventListener('click', function(){handleClickOnProduct(randomProductThree);});
-buttonLocation.addEventListener('click', handleClickOnButton);
+  Product.prototype.displayImage = function(imageLocationId) {
+    var img = document.createElement('img');
+    img.src = this.filePath;
+    imageLocationId.appendChild(img);
+  };
+
+  var bag = new Product('R2 Bag','img/bag.jpg');
+  var banana = new Product('Banana Slicer', 'img/banana.jpg');
+  var boots = new Product('Boots', 'img/boots.jpg');
+  var chair = new Product('Chair', 'img/chair.jpg');
+  var cthulhu = new Product('Cthulu', 'img/cthulhu.jpg');
+  var dragon = new Product('Dragon Meat', 'img/dragon.jpg');
+  var pen = new Product('Pen Silverware', 'img/pen.jpg');
+  var scissors = new Product('Pizza Scissors', 'img/scissors.jpg');
+  var shark = new Product('Shark Sleepig Bag', 'img/shark.jpg');
+  var sweep = new Product('Baby Sweeper', 'img/sweep.png');
+  var unicorn = new Product('Unicorn Meat', 'img/unicorn.jpg');
+  var usb = new Product('USB Tentacle', 'img/usb.gif');
+  var water_can = new Product('Watering Can', 'img/water-can.jpg');
+  var wine_glass = new Product('Wine Glass', 'img/wine-glass.jpg');
+
+  function testNoZeroViews() {
+    var zeroItemViewsCount = 0;
+    for (var i = 0; i < allProducts.length; i++) {
+      if (allProducts[i].productShows === 0) {
+        zeroItemViewsCount += 1;
+      }
+    }
+    console.log('zeroItemViewsCount = ' + zeroItemViewsCount);
+    if (zeroItemViewsCount === 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  var randomProductOne = 0;
+  var randomProductTwo = 0;
+  var randomProductThree = 0;
+
+  function threeRandomProducts() {
+    var i = Math.floor(Math.random() * allProducts.length);
+    var j = Math.floor(Math.random() * allProducts.length);
+    var k = Math.floor(Math.random() * allProducts.length);
+    randomProductOne = allProducts[i];
+    randomProductTwo = allProducts[j];
+    randomProductThree = allProducts[k];
+
+    while (i === j) {
+      j = Math.floor(Math.random() * (allProducts.length));
+      console.log(j);
+      randomProductTwo = allProducts[j];
+    }
+
+    while (j === k || i === k) {
+      k = Math.floor(Math.random() * (allProducts.length));
+      console.log(k);
+      randomProductThree = allProducts[k];
+    }
+
+    noZeroClicks = testNoZeroViews();
+    randomProductOne.displayImage(imageLocationOne, randomProductOne);
+    randomProductTwo.displayImage(imageLocationTwo, randomProductTwo);
+    randomProductThree.displayImage(imageLocationThree, randomProductThree);
+    return [i,j,k];
+  }
+
+  function addResultsButton() {
+    if (totalClicks > 14 && noZeroClicks === true) {
+      var buttonId = document.getElementById('results');
+      buttonId.removeAttribute('hidden');
+    }
+  }
+
+  function calcClickPercents() {
+    for (var i = 0; i < allProducts.length; i++) {
+      if (allProducts[i].productShows > 0) {
+        clickPercents[i] = ((allProducts[i].productClicks / allProducts[i].productShows) * 100).toFixed(2);
+      } else {
+        clickPercents[i] = 0;
+      }
+    }
+    return clickPercents;
+  }
+
+  //Inital population of the page
+  var displayedProducts = threeRandomProducts();
+
+  //Trying to abstract the event handler
+  function handleClickOnProduct (clickedProduct) {
+    console.log(clickedProduct);
+    event.preventDefault();
+    allProducts[displayedProducts[0]].productShows += 1;
+    allProducts[displayedProducts[1]].productShows += 1;
+    allProducts[displayedProducts[2]].productShows += 1;
+    totalClicks += 1;
+    clickedProduct.productClicks += 1;
+
+    imageLocationOne.innerHTML = ' ';
+    imageLocationTwo.innerHTML = ' ';
+    imageLocationThree.innerHTML = ' ';
+    addResultsButton();
+    displayedProducts = threeRandomProducts();
+  }
+
+  function handleClickOnButton(event) {
+    var clickPercents = calcClickPercents();
+    var data = {
+      labels : chartLabels,
+      datasets : [
+        {
+          label : 'Click Percentages',
+          fillColor : '#FF0000',
+          StrokeColor : '#7E7E7E',
+          highlightFill : '#C5C5C5',
+          highlightStroke : '#7E7E7E',
+          data : clickPercents
+        }
+      ]
+    };
+    chartContainer.innerHTML = ' ';
+    chartContainer.innerHTML = '<h3>Click Percentages by Item</h3> <canvas id="barChart" width= "600" height="300"></canvas>';
+    var chartId = document.getElementById('barChart').getContext('2d');
+    var clickChart = new Chart(chartId).Bar(data);
+  }
+
+  imageLocationOne.addEventListener('click', function(){handleClickOnProduct(randomProductOne);});
+  imageLocationTwo.addEventListener('click', function(){handleClickOnProduct(randomProductTwo);});
+  imageLocationThree.addEventListener('click', function(){handleClickOnProduct(randomProductThree);});
+  buttonLocation.addEventListener('click', handleClickOnButton);
+}());
