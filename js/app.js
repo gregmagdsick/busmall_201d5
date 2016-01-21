@@ -4,6 +4,7 @@ var imageLocationTwo = document.getElementById('imageLocationTwo');
 var imageLocationThree = document.getElementById('imageLocationThree');
 var buttonLocation = document.getElementById('results');
 var chartContainer = document.getElementById('chart');
+var buttonClear = document.getElementById('clearLs');
 var noZeroClicks = false;
 
 var allProducts = [];
@@ -22,11 +23,12 @@ var Product = function(productName,filePath) {
   chartLabels.push(this.productName);
 };
 
-Product.prototype.displayImage = function(imageLocationId) {
-  var img = document.createElement('img');
-  img.src = this.filePath;
-  imageLocationId.appendChild(img);
+function makeImage(imagePath, imageLocationId) {
+  var imgEl = document.createElement('img');
+  imgEl.src = imagePath;
+  imageLocationId.appendChild(imgEl);
 };
+
 
 var bag = new Product('R2 Bag','img/bag.jpg');
 var banana = new Product('Banana Slicer', 'img/banana.jpg');
@@ -42,6 +44,14 @@ var unicorn = new Product('Unicorn Meat', 'img/unicorn.jpg');
 var usb = new Product('USB Tentacle', 'img/usb.gif');
 var water_can = new Product('Watering Can', 'img/water-can.jpg');
 var wine_glass = new Product('Wine Glass', 'img/wine-glass.jpg');
+
+  if (localStorage.getItem('chartData')) {
+    allProducts = JSON.parse(localStorage.getItem('chartData'));
+    console.log('For benton! ' + allProducts);
+  } else {
+    console.log('Local storage empty. Initializing!');
+    localStorage.setItem('chartData', JSON.stringify(allProducts));
+  }
 
 function testNoZeroViews() {
   var zeroItemViewsCount = 0;
@@ -67,6 +77,7 @@ function threeRandomProducts() {
   var j = Math.floor(Math.random() * allProducts.length);
   var k = Math.floor(Math.random() * allProducts.length);
   randomProductOne = allProducts[i];
+  console.log(allProducts[i]);
   randomProductTwo = allProducts[j];
   randomProductThree = allProducts[k];
 
@@ -83,14 +94,14 @@ function threeRandomProducts() {
   }
 
   noZeroClicks = testNoZeroViews();
-  randomProductOne.displayImage(imageLocationOne, randomProductOne);
-  randomProductTwo.displayImage(imageLocationTwo, randomProductTwo);
-  randomProductThree.displayImage(imageLocationThree, randomProductThree);
+  makeImage(randomProductOne.filePath, imageLocationOne);
+  makeImage(randomProductTwo.filePath, imageLocationTwo);
+  makeImage(randomProductThree.filePath, imageLocationThree);
   return [i,j,k];
 }
 
 function addResultsButton() {
-  if (totalClicks > 14 && noZeroClicks === true) {
+  if (totalClicks > 3 && noZeroClicks === false) {
     var buttonId = document.getElementById('results');
     buttonId.removeAttribute('hidden');
   }
@@ -113,7 +124,7 @@ var displayedProducts = threeRandomProducts();
 //Trying to abstract the event handler
 function handleClickOnProduct (clickedProduct) {
   console.log(clickedProduct);
-  event.preventDefault();
+  // event.preventDefault();
   allProducts[displayedProducts[0]].productShows += 1;
   allProducts[displayedProducts[1]].productShows += 1;
   allProducts[displayedProducts[2]].productShows += 1;
@@ -125,6 +136,7 @@ function handleClickOnProduct (clickedProduct) {
   imageLocationThree.innerHTML = ' ';
   addResultsButton();
   displayedProducts = threeRandomProducts();
+  localStorage.setItem('chartData', JSON.stringify(allProducts));
 }
 
 function handleClickOnButton(event) {
@@ -148,7 +160,14 @@ function handleClickOnButton(event) {
   new Chart(chartId).Bar(data);
 }
 
+function handleClearData() {
+  localStorage.clear()
+  console.log('You have cleared local storage!')
+}
+
 imageLocationOne.addEventListener('click', function(){handleClickOnProduct(randomProductOne);});
 imageLocationTwo.addEventListener('click', function(){handleClickOnProduct(randomProductTwo);});
 imageLocationThree.addEventListener('click', function(){handleClickOnProduct(randomProductThree);});
 buttonLocation.addEventListener('click', handleClickOnButton);
+
+buttonClear.addEventListener('click', handleClearData);
