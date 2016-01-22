@@ -14,6 +14,8 @@ Here are the user stories for this project
 
 * As a marketing research team, I don't want the voting data to automatically display after 15 clicks, but for the participants to have the option to view the data after 15 clicks.
 
+* As a marketing research team, I want to be able to collect data from more than one session from test participants.
+
 ###  As a developer:###
 
 * As a developer, I want to build the JavaScript using good object oriented principals.
@@ -37,6 +39,8 @@ Here are the user stories for this project
 * As a developer, I want the marketing data displayed to update if the user clicks on the display button again.
 
 * As a developer, I want to use a linter to clean up my code
+
+* As a developer, I want to be able to keep state data between sessions
 
 
 ### As a focus group participant: ###

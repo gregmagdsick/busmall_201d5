@@ -4,7 +4,6 @@ var imageLocationTwo = document.getElementById('imageLocationTwo');
 var imageLocationThree = document.getElementById('imageLocationThree');
 var buttonLocation = document.getElementById('results');
 var chartContainer = document.getElementById('chart');
-var buttonClear = document.getElementById('clearLs');
 var noZeroClicks = false;
 
 var allProducts = [];
@@ -101,7 +100,7 @@ function threeRandomProducts() {
 }
 
 function addResultsButton() {
-  if (totalClicks > 3 && noZeroClicks === false) {
+  if (totalClicks > 14 && noZeroClicks === true) {
     var buttonId = document.getElementById('results');
     buttonId.removeAttribute('hidden');
   }
@@ -169,5 +168,3 @@ imageLocationOne.addEventListener('click', function(){handleClickOnProduct(rando
 imageLocationTwo.addEventListener('click', function(){handleClickOnProduct(randomProductTwo);});
 imageLocationThree.addEventListener('click', function(){handleClickOnProduct(randomProductThree);});
 buttonLocation.addEventListener('click', handleClickOnButton);
-
-buttonClear.addEventListener('click', handleClearData);
