@@ -4,6 +4,9 @@ var imageLocationTwo = document.getElementById('imageLocationTwo');
 var imageLocationThree = document.getElementById('imageLocationThree');
 var buttonLocation = document.getElementById('results');
 var chartContainer = document.getElementById('chart');
+var randomProductOne = 0;
+var randomProductTwo = 0;
+var randomProductThree = 0;
 var noZeroClicks = false;
 
 var allProducts = [];
@@ -11,7 +14,7 @@ var chartLabels = [];
 var clickPercents = [];
 var totalClicks = 0;
 
-//building object constructor
+
 var Product = function(productName,filePath) {
   this.productName = productName;
   this.filePath = filePath;
@@ -21,13 +24,6 @@ var Product = function(productName,filePath) {
   allProducts.push(this);
   chartLabels.push(this.productName);
 };
-
-function makeImage(imagePath, imageLocationId) {
-  var imgEl = document.createElement('img');
-  imgEl.src = imagePath;
-  imageLocationId.appendChild(imgEl);
-}
-
 
 var bag = new Product('R2 Bag','img/bag.jpg');
 var banana = new Product('Banana Slicer', 'img/banana.jpg');
@@ -67,9 +63,11 @@ function testNoZeroViews() {
   }
 }
 
-var randomProductOne = 0;
-var randomProductTwo = 0;
-var randomProductThree = 0;
+function makeImage(imagePath, imageLocationId) {
+  var imgEl = document.createElement('img');
+  imgEl.src = imagePath;
+  imageLocationId.appendChild(imgEl);
+}
 
 function threeRandomProducts() {
   var i = Math.floor(Math.random() * allProducts.length);
@@ -99,6 +97,8 @@ function threeRandomProducts() {
   return [i,j,k];
 }
 
+var displayedProducts = threeRandomProducts();
+
 function addResultsButton() {
   if (totalClicks > 14 && noZeroClicks === true) {
     var buttonId = document.getElementById('results');
@@ -117,13 +117,8 @@ function calcClickPercents() {
   return clickPercents;
 }
 
-//Inital population of the page
-var displayedProducts = threeRandomProducts();
-
-//Trying to abstract the event handler
 function handleClickOnProduct (clickedProduct) {
   console.log(clickedProduct);
-  // event.preventDefault();
   allProducts[displayedProducts[0]].productShows += 1;
   allProducts[displayedProducts[1]].productShows += 1;
   allProducts[displayedProducts[2]].productShows += 1;
@@ -157,11 +152,6 @@ function handleClickOnButton(event) {
   chartContainer.innerHTML = '<h3>Click Percentages by Item</h3> <canvas id="barChart" width= "600" height="300"></canvas>';
   var chartId = document.getElementById('barChart').getContext('2d');
   new Chart(chartId).Bar(data);
-}
-
-function handleClearData() {
-  localStorage.clear();
-  console.log('You have cleared local storage!');
 }
 
 imageLocationOne.addEventListener('click', function(){handleClickOnProduct(randomProductOne);});
