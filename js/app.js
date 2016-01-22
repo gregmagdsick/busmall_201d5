@@ -27,7 +27,7 @@ function makeImage(imagePath, imageLocationId) {
   var imgEl = document.createElement('img');
   imgEl.src = imagePath;
   imageLocationId.appendChild(imgEl);
-};
+}
 
 
 var bag = new Product('R2 Bag','img/bag.jpg');
@@ -45,13 +45,13 @@ var usb = new Product('USB Tentacle', 'img/usb.gif');
 var water_can = new Product('Watering Can', 'img/water-can.jpg');
 var wine_glass = new Product('Wine Glass', 'img/wine-glass.jpg');
 
-  if (localStorage.getItem('chartData')) {
-    allProducts = JSON.parse(localStorage.getItem('chartData'));
-    console.log('For benton! ' + allProducts);
-  } else {
-    console.log('Local storage empty. Initializing!');
-    localStorage.setItem('chartData', JSON.stringify(allProducts));
-  }
+if (localStorage.getItem('chartData')) {
+  allProducts = JSON.parse(localStorage.getItem('chartData'));
+  console.log('For benton! ' + allProducts);
+} else {
+  console.log('Local storage empty. Initializing!');
+  localStorage.setItem('chartData', JSON.stringify(allProducts));
+}
 
 function testNoZeroViews() {
   var zeroItemViewsCount = 0;
@@ -161,8 +161,8 @@ function handleClickOnButton(event) {
 }
 
 function handleClearData() {
-  localStorage.clear()
-  console.log('You have cleared local storage!')
+  localStorage.clear();
+  console.log('You have cleared local storage!');
 }
 
 imageLocationOne.addEventListener('click', function(){handleClickOnProduct(randomProductOne);});
