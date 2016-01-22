@@ -4,6 +4,10 @@ week 3 project for CodeFellows 201 course
 Logo created at:
 logomakr.com/6en82d
 
+1/21/2016
+* Built local storage for the app, so that clicks can be logged across multiple sessions
+* Re-factored display method as an independant function, so that local storage can be used
+
 1/20/2016
 * Built functionality for ensuring all products are displayed at least once before data can be displayed
 
